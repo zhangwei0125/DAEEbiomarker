@@ -2,7 +2,7 @@
 % Please edit documentation in R/calWeight.R
 \name{calWeight}
 \alias{calWeight}
-\title{Calculation of the weights for the super learner.}
+\title{Calculation of the weights for the super learner in the complete-data setting.}
 \usage{
 calWeight(Y, Trt, Z, W, Pi, SL.lib, SL.family, SL.method, SL.cv, ols.max)
 }
@@ -33,8 +33,9 @@ a vector of the coefficients for the individual algorithms in the library
 }
 \description{
 'calWeight()' estimates the coefficients for the super learner and the model to combine
-the individual algorithms in the library.
-
+the individual algorithms in the library in the complete-data setting.
+}
+\details{
 This function is used to estimate the weights for the super learner and the model to combine
-the individual algorithms in the library.
+the individual algorithms in the library in the complete-data setting.
 }

@@ -1,22 +1,22 @@
-#'  Machine learning estimation of the first agumented term in the two-phase design
+#' @title Machine learning estimation of the first agumented term in the two-phase design
 #'  using a super learner procedure
-#' 
-#' 'SuperLearnerA()' returns the estimate of first agumented function a() in the two-phase
+#'
+#' @description 'SuperLearnerA()' returns the estimate of first agumented function a() in the two-phase
 #'  design using a super learner procedure
-#' 
-#' This function is used to estimate the first agumented term of the estimation function 
+#'
+#' @details This function is used to estimate the first agumented term of the estimation function
 #' for the two-phase design using a super learner procedure. This agumented function is
 #'  a function of (biomarker, baseline covariate).
-#' 
+#'
 #' @param Y a vector for outcome
 #' @param Trt a vector for treatment indicator
 #' @param Z a vector for biomarker
-#' @param R an indicator for whether the biomarker is observed 
+#' @param R an indicator for whether the biomarker is observed
 #' @param W a matrix for baseline covariates (not inlcuing the biomarker)
-#' @param Pi probability of receiving the treatment (T=1) 
+#' @param Pi probability of receiving the treatment (T=1)
 #' @param probR conditional probability for the event that biomarker is observed
-#' @param newZ a new vector for biomarker at which the agumented function a() is evaluated 
-#' @param newW a new matrix for baseline covariates at which the agumented function a() is evaluated 
+#' @param newZ a new vector for biomarker at which the agumented function a() is evaluated
+#' @param newW a new matrix for baseline covariates at which the agumented function a() is evaluated
 #' @param SL.lib a list of functions for candidate prediction algorithms
 #' @param SL.family allows gaussian or binomial to describe the error distribution
 #' @param SL.method a character value indicating the method used to estimate the coefficients
@@ -24,15 +24,15 @@
 #' @param b.fun the second augmented term which is a function of (outcome, treatment, baseline covairate)
 #' @param ols.max upper bound for the coefficients of individual algorithms in the super learner
 #' @param SL.cv  Number of splits for the cross-validation step in super learner
-#' 
+#'
 #' @return a list with the first argument being the estimate of augmented function a() by the individual
 #' prediction algorithms and the second argument being the estimate by the super learner which combines
 #' the individual algorithms.
-#' 
+#'
 #'  @export
-#'   
+#'
 SuperLearnerA <- function(Y, Trt, Z, R, W, Pi, probR, newZ, newW, SL.lib, SL.family, SL.method, b.fun, ols.max, SL.cv){
-  
+
   n <- length(Y)
   Q <- 4
   if(is.vector(W))  W <- matrix(W, ncol=1)
@@ -41,7 +41,7 @@ SuperLearnerA <- function(Y, Trt, Z, R, W, Pi, probR, newZ, newW, SL.lib, SL.fam
   ########Estimators for the algortihms in the list of library
   a.hat <- augFunA(Y=Y, Trt=Trt, Z=Z, R=R, W=W, Pi=Pi, probR=probR, newZ=newZ, newW=newW,
                    SL.lib=SL.lib, SL.family=SL.family, b.fun=b.fun)$lib.predict
-  
+
   #######calculate the coefficients for super learner estimator
   fold <- sample(1:SL.cv, n, replace=TRUE)
   a.hat.cv <- array(NA,dim=c(n, Q, K))
@@ -61,7 +61,7 @@ SuperLearnerA <- function(Y, Trt, Z, R, W, Pi, probR, newZ, newW, SL.lib, SL.fam
     temp2.valid <- matrix(sqrt(R[valid])/probR[valid], nrow=n.valid, ncol=Q, byrow=F)
     rsp.a.cv[valid,] <- temp1.valid*temp2.valid
   }
-  ### 
+  ###
   res.coef <- matrix(NA, nrow=Q, ncol=K)
   for(q in 1:Q)
   {
@@ -74,7 +74,7 @@ SuperLearnerA <- function(Y, Trt, Z, R, W, Pi, probR, newZ, newW, SL.lib, SL.fam
     if(SL.method=="nnls"){
       run.coef <- nnls(reg.a, rsp.a.cv[,q])$x
       run.coef[is.na(run.coef)] <- 0
-      if(sum(run.coef)>0)  
+      if(sum(run.coef)>0)
       {
         res.coef[q,] <- run.coef/sum(run.coef)
       }else{
@@ -83,7 +83,7 @@ SuperLearnerA <- function(Y, Trt, Z, R, W, Pi, probR, newZ, newW, SL.lib, SL.fam
       }
     }
   }
-  
+
   #### the super learner predictor
   a.SL <- matrix(NA, nrow=dim(a.hat)[1], ncol=Q)
   for(q in 1:Q)

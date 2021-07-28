@@ -1,29 +1,29 @@
-#' Calculation of the weights for the super learner.
-#' 
-#' 'calWeight()' estimates the coefficients for the super learner and the model to combine
-#'  the individual algorithms in the library.
-#'  
-#'  This function is used to estimate the weights for the super learner and the model to combine
-#'  the individual algorithms in the library.
-#'  
+#' @title Calculation of the weights for the super learner in the complete-data setting.
+#'
+#' @description 'calWeight()' estimates the coefficients for the super learner and the model to combine
+#'  the individual algorithms in the library in the complete-data setting.
+#'
+#' @details This function is used to estimate the weights for the super learner and the model to combine
+#'  the individual algorithms in the library in the complete-data setting.
+#'
 #' @param Y a vector for outcome
 #' @param Trt a vector for treatment indicator
 #' @param Z a vector for biomarker
 #' @param W a matrix for baseline covariates (not inlcuing the biomarker)
-#' @param Pi probability of receiving the treatment (T=1) 
+#' @param Pi probability of receiving the treatment (T=1)
 #' @param SL.lib a list of functions for candidate prediction algorithms
 #' @param SL.family allows gaussian or binomial to describe the error distribution
 #' @param SL.method a character value indicating the method used to estimate the coefficients
 #' for the super learner and the model to combine the individual algorithms
 #' @param SL.cv  Number of splits for the cross-validation step in super learner
 #' @param ols.max upper bound for the coefficients of individual algorithms in the super learner
-#' 
+#'
 #' @return a vector of the coefficients for the individual algorithms in the library
-#' 
+#'
 #' @export
-#' 
+#'
 calWeight <- function(Y, Trt, Z, W, Pi, SL.lib, SL.family, SL.method, SL.cv, ols.max){
-  
+
   n <- length(Y)
   Q <- 4
   if(is.vector(W))  W <- matrix(W, ncol=1)
@@ -56,7 +56,7 @@ calWeight <- function(Y, Trt, Z, W, Pi, SL.lib, SL.family, SL.method, SL.cv, ols
     if(SL.method=="nnls"){
       run.coef <- nnls(reg.a, psi.cv[,q])$x
       run.coef[is.na(run.coef)] <- 0
-      if(sum(run.coef)>0)  
+      if(sum(run.coef)>0)
       {
         res.coef[q,] <- run.coef/sum(run.coef)
       }else{

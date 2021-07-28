@@ -2,12 +2,7 @@
 % Please edit documentation in R/augFun.Est.R
 \name{augFun.Est}
 \alias{augFun.Est}
-\title{Machine learning estimate for the augmented function.
-
-'augFun.Est()' returns the augmented function a() at some given observations.
-
-This function is used to estimate the augmented term in the augmentation estimation
-function using a library of prediction algorithms.}
+\title{Machine learning estimate for the augmented function in the complete-data setting}
 \usage{
 augFun.Est(Y, Trt, Z, W, newZ, newW, Pi, SL.lib, SL.family)
 }
@@ -38,10 +33,9 @@ being the augmented term a() evaluated at the given observation (newZ, newW)
 @export
 }
 \description{
-Machine learning estimate for the augmented function.
-
 'augFun.Est()' returns the augmented function a() at some given observations.
-
+}
+\details{
 This function is used to estimate the augmented term in the augmentation estimation
 function using a library of prediction algorithms.
 }

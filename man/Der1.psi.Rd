@@ -6,24 +6,20 @@
 \usage{
 Der1.psi(dat.vec, bet)
 }
+\arguments{
+\item{dat.vec}{a vector contianing the observation of outcome, treatment, biomaker}
+
+\item{bet}{value for the parameter beta}
+}
+\value{
+a value of the first derivative of the estimating function for the individual
+observation (outcome, treatment, biomaker)
+}
 \description{
-'Der1.psi()' is the first derivative value of the estimating function for the
-individual observation at a certain value.
+'Der1.psi()' is the first derivative value of the estimating function without
+augmentation for the individual observation at a certain value.
 }
 \details{
 This function is used to calculate the first derivative of the estimating function
-for the individual observation at a certain value.
-
-@param dat.vec a vector contianing the observation of outcome, treatment, biomaker
-@param bet value for the parameter beta
-
-@return a value of the first derivative of the estimating function for the individual
-observation (outcome, treatment, biomaker)
-
-@example
-dat.vec = c(1.5, 1, 0.3)
-bet = 0.5
-Der1.psi(dat.vec=dat.vec, bet=bet)
-
-@export
+without augmentation for the individual observation at a certain value.
 }

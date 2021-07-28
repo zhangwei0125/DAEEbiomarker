@@ -68,7 +68,8 @@ variance estimate.
 'SL2Phase()' returns efficient estimation  for biomarker studies in the two-phase
 design in which the biomarker is only measured on a random sub-sample of subjects
 chosen on the basis of (Y, T, W).
-
+}
+\details{
 This function is used to estimate the parameter for the relationship between a
 clinical outcome of interest and the biomarker, treatment indicator (can be omitted
 in the case of a prognostic biomarker) in the two-phase setting. The efficient

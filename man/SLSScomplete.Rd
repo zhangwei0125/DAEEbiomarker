@@ -3,17 +3,7 @@
 \name{SLSScomplete}
 \alias{SLSScomplete}
 \title{Efficient estimation with sample splitting for biomarker studies embedded in
-randomized clinical trials in the complete-data setting.
-
-'SLSScomplete()' returns efficient estimation with sample splitting for biomarker
-studies in the complete-data setting in which the biomarker is measured for all
-subjects in the trial, by using machine learning method.
-
-This function is used to estimate the parameter for the relationship between a
-clinical outcome of interest and the biomarker, treatment indicator (can be omitted
-in the case of a prognostic biomarker) in the complete-data setting, using the proposed efficient
-estimation approach with sample splitting. The efficient estimation incorporates the independence
-between treatment and all relevant baseline covariates.}
+randomized clinical trials in the complete-data setting.}
 \usage{
 SLSScomplete(
   Y,
@@ -64,13 +54,11 @@ variance estimate.
 @export
 }
 \description{
-Efficient estimation with sample splitting for biomarker studies embedded in
-randomized clinical trials in the complete-data setting.
-
 'SLSScomplete()' returns efficient estimation with sample splitting for biomarker
 studies in the complete-data setting in which the biomarker is measured for all
 subjects in the trial, by using machine learning method.
-
+}
+\details{
 This function is used to estimate the parameter for the relationship between a
 clinical outcome of interest and the biomarker, treatment indicator (can be omitted
 in the case of a prognostic biomarker) in the complete-data setting, using the proposed efficient

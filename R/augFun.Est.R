@@ -1,33 +1,33 @@
-#'  Machine learning estimate for the augmented function.
-#'  
-#'  'augFun.Est()' returns the augmented function a() at some given observations.
-#'  
-#'  This function is used to estimate the augmented term in the augmentation estimation
-#'   function using a library of prediction algorithms. 
-#'   
+#' @title Machine learning estimate for the augmented function in the complete-data setting
+#'
+#' @description 'augFun.Est()' returns the augmented function a() at some given observations.
+#'
+#' @details This function is used to estimate the augmented term in the augmentation estimation
+#'   function using a library of prediction algorithms.
+#'
 #' @param Y a vector for outcome
 #' @param Trt a vector for treatment indicator
 #' @param Z a vector for biomarker
 #' @param W a matrix for baseline covariates (not inlcuing the biomarker)
-#' @param newZ biomarker value to be evaluated 
-#' @param newW baseline covariate values to be evaluated 
-#' @param Pi probability of receiving the treatment (T=1) 
+#' @param newZ biomarker value to be evaluated
+#' @param newW baseline covariate values to be evaluated
+#' @param Pi probability of receiving the treatment (T=1)
 #' @param SL.lib a list of functions for candidate prediction algorithms
 #' @param SL.family allows gaussian or binomial to describe the error distribution
-#' 
-#' @return A list with the first argument being the estimate of the interested 
+#'
+#' @return A list with the first argument being the estimate of the interested
 #' parameter beta based on the unaugmented estimation function and the second argument being
-#' being the augmented term a() evaluated at the given observation (newZ, newW) 
-#' 
+#' being the augmented term a() evaluated at the given observation (newZ, newW)
+#'
 #'  @export
-#'  
+#'
 augFun.Est <- function(Y, Trt, Z, W, newZ, newW, Pi, SL.lib, SL.family){
-  
+
   n <- length(Y)
   Q <- 4
   datMat <- cbind(Y, Trt, Z)
   psi.Equ <- function(bet)
-  {  
+  {
     return(rowSums(apply(datMat, MARGIN=1, FUN=psi.fun, bet=bet)))
   }
   solver <- multiroot(f=psi.Equ, start=rep(0, Q), maxiter=500)

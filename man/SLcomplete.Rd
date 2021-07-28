@@ -3,17 +3,7 @@
 \name{SLcomplete}
 \alias{SLcomplete}
 \title{Efficient estimation for biomarker studies embedded in randomized clinical trials
-in the complete-data setting.
-
-'SLcomplete()' returns efficient estimation for biomarker studies in the complete-
-data setting in which the biomarker is measured for all subjects in the trial, by
-using machine learning method.
-
-This function is used to calculate estimates for the relationship
-between a clinical outcome of interest and the biomarker, treatment indicator (can
-be omitted in the case of a prognostic biomarker) in the complete-data setting, by
-using the proposed efficient estimation approach. The efficient estimation incorporates
-the independence between treatment and all relevant baseline covariates.}
+in the complete-data setting.}
 \usage{
 SLcomplete(
   Y,
@@ -58,19 +48,13 @@ A list with the first argument being the estimate of the association (beta) betw
 outcome and biomarker, treatment indicator for the individual algorithms, as well as a super learner
 that combines the individual algorithms, the second argument being the corresponding cross-validated
 variance estimate.
-
-@import SuperLearner rootSolve
-
-@export
 }
 \description{
-Efficient estimation for biomarker studies embedded in randomized clinical trials
-in the complete-data setting.
-
 'SLcomplete()' returns efficient estimation for biomarker studies in the complete-
 data setting in which the biomarker is measured for all subjects in the trial, by
 using machine learning method.
-
+}
+\details{
 This function is used to calculate estimates for the relationship
 between a clinical outcome of interest and the biomarker, treatment indicator (can
 be omitted in the case of a prognostic biomarker) in the complete-data setting, by

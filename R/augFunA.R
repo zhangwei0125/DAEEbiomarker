@@ -1,46 +1,46 @@
-#' Estimation of the first agumented term in the two-phase design by indiivdual
+#' @title Estimation of the first agumented term in the two-phase design by indiivdual
 #'  machine learning prediction algorithms
-#' 
-#' 'augFunA()' returns the estimate of first agumented function a() in the two-phase
+#'
+#' @description 'augFunA()' returns the estimate of first agumented function a() in the two-phase
 #'  design by indiivdual machine learning prediction algorithms
-#' 
-#' This function is used to estimate the first agumented term of the estimation function 
+#'
+#' @details This function is used to estimate the first agumented term of the estimation function
 #' for the two-phase design. This agumented function is a function of (biomarker, baseline covariate).
-#' 
+#'
 #' @param Y a vector for outcome
 #' @param Trt a vector for treatment indicator
 #' @param Z a vector for biomarker
-#' @param R an indicator for whether the biomarker is observed 
+#' @param R an indicator for whether the biomarker is observed
 #' @param W a matrix for baseline covariates (not inlcuing the biomarker)
-#' @param Pi probability of receiving the treatment (T=1) 
+#' @param Pi probability of receiving the treatment (T=1)
 #' @param probR conditional probability for the event that biomarker is observed
-#' @param newZ a new vector for biomarker at which the agumented function a() is evaluated 
-#' @param newW a new matrix for baseline covariates at which the agumented function a() is evaluated 
+#' @param newZ a new vector for biomarker at which the agumented function a() is evaluated
+#' @param newW a new matrix for baseline covariates at which the agumented function a() is evaluated
 #' @param SL.lib a list of functions for candidate prediction algorithms
 #' @param SL.family allows gaussian or binomial to describe the error distribution
 #' @param b.fun the second augmented term which is a function of (outcome, treatment, baseline covairate)
-#' 
+#'
 #' @return a list with the first argument being the initial estimate of beta without augmentation and
 #' the second argument being the estimate of the augmented function a() at (newZ, newW)
-#' 
+#'
 #' @export
-#' 
+#'
 augFunA <- function(Y, Trt, Z, R, W, Pi, probR, newZ, newW, SL.lib, SL.family, b.fun){
-  
+
   n <- length(Y)
   Q <- 4
-  if(is.vector(W))  W <- matrix(W, ncol=1)   
+  if(is.vector(W))  W <- matrix(W, ncol=1)
   datMat <- cbind(Y, Trt, Z)
-  K <- length(SL.lib) 
+  K <- length(SL.lib)
   #### unadjsted estimator
-  a.Ini <- matrix(0, nrow=n, ncol=Q) 
+  a.Ini <- matrix(0, nrow=n, ncol=Q)
   b.Ini <- matrix(0, nrow=n, ncol=Q)
   psiStar.Ini <- function(bet)
   {
     return(colSums(psiStar(Y=Y, Trt=Trt, Z=Z, R=R, Pi=Pi, probR=probR, bet=bet, a.fun=a.Ini, b.fun=b.Ini)))
   }
   bet.Ini <- multiroot(f=psiStar.Ini, start=rep(0, Q), maxiter=500)$root
-  #### estimate a using the method in SL.lib  
+  #### estimate a using the method in SL.lib
   psi.Ini <- t(apply(datMat, MARGIN=1, FUN=psi.fun, bet=bet.Ini))
   n.run <- length(Z)
   n.test <- length(newZ)

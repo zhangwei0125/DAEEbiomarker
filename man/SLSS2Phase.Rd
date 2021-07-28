@@ -59,16 +59,13 @@ A list with the first argument being the estimate of the association (beta) betw
 outcome and biomarker, treatment indicator for the individual algorithms, as well as a super learner
 that combines the individual algorithms, the second argument being the corresponding cross-validated
 variance estimate.
-
-@import SuperLearner rootSolve
-
-@export
 }
 \description{
 'SLSS2Phase()' returns efficient estimation with sample splitting for biomarker studies in the
 two-phase design in which the biomarker is only measured on a random sub-sample of subjects
 chosen on the basis of (Y, T, W).
-
+}
+\details{
 This function is used to estimate the parameter for the relationship between a
 clinical outcome of interest and the biomarker, treatment indicator (can be omitted
 in the case of a prognostic biomarker) in the two-phase setting, using the proposed efficient
